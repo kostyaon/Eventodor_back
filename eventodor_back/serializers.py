@@ -1,5 +1,6 @@
+from dataclasses import field
 from rest_framework import serializers
-from .models import User, Event
+from .models import User, Event, UserEvent
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -16,7 +17,15 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = (
-            'address', 'persons_amount', 'register_persons_amount',
+            'id', 'address', 'persons_amount', 'register_persons_amount',
             'name', 'description', 'time',
             'price', 'rank'
+        )
+
+class UserEventSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserEvent
+        fields = (
+            'user_id', 'event_id'
         )
