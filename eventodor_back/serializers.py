@@ -1,6 +1,6 @@
 from dataclasses import field
 from rest_framework import serializers
-from .models import User, Event, UserEvent
+from .models import Photo, User, Event, UserEvent
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -28,4 +28,12 @@ class UserEventSerializer(serializers.ModelSerializer):
         model = UserEvent
         fields = (
             'user_id', 'event_id'
+        )
+
+class PhotoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Photo
+        fields = (
+            'id', 'url'
         )

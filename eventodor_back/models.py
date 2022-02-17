@@ -37,3 +37,9 @@ class UserEvent(models.Model):
 
     def __str__(self):
         return str(self.user_id)
+
+class Photo(models.Model):
+    url = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.url
