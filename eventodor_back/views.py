@@ -1,7 +1,7 @@
 from django import views
 from rest_framework import generics, viewsets
-from .models import User, Event, UserEvent, Photo
-from .serializers import PhotoSerializer, UserEventSerializer, UserSerializer, EventSerializer
+from .models import Coordinate, FavouriteEvents, Review, User, Event, UserEvent, Photo
+from .serializers import CoordinateSerializer, FavouriteEventSerializer, PhotoSerializer, ReviewSerializer, UserEventSerializer, UserSerializer, EventSerializer
 
 # Create your views here.
 
@@ -31,4 +31,23 @@ class UserEventViewSet(viewsets.ModelViewSet):
 class PhotoViewSet(viewsets.ModelViewSet):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
+    
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+class FavouriteViewSet(viewsets.ModelViewSet):
+    serializer_class = FavouriteEventSerializer
+
+    def get_queryset(self):
+        queryset = FavouriteEvents.objects.all()
+        user_param = self.request.GET.get('userId')
+        if user_param:
+            queryset = queryset.filter(user_id=user_param)
         
+        return queryset
+
+
+class CoordinateViewSet(viewsets.ModelViewSet):
+    queryset = Coordinate.objects.all()
+    serializer_class = CoordinateSerializer
