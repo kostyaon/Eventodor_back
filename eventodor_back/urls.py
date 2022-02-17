@@ -1,7 +1,8 @@
+from posixpath import basename
 from django.urls import path
-from .views import UserList, UserDetail
+from rest_framework.routers import SimpleRouter
+from .views import UserViewSet
 
-urlpatterns = [
-    path('user/', UserList.as_view()),
-    path('user/<int:pk>', UserDetail.as_view())
-]
+router = SimpleRouter()
+router.register('user', UserViewSet, basename='user')
+urlpatterns = router.urls
