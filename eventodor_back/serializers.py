@@ -1,6 +1,6 @@
 from dataclasses import field, fields
 from rest_framework import serializers
-from .models import Coordinate, FavouriteEvents, Photo, Review, User, Event, UserEvent
+from .models import Category, Coordinate, FavouriteEvents, OrgEvent, Organization, Organizer, Photo, Review, User, Event, UserEvent
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -18,7 +18,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = (
-            'id', 'photo_id', 'coordinate_id',
+            'id', 'photo_id', 'coordinate_id', 'category_id', 'org_id',
             'address', 'persons_amount', 'register_persons_amount',
             'name', 'description', 'time',
             'price', 'rank'
@@ -65,3 +65,40 @@ class CoordinateSerializer(serializers.ModelSerializer):
             'id', 'longitude',
             'latitude', 'height'
         )
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = (
+            'id', 'name'
+        )
+
+class OrganizationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Organization
+        fields = (
+            'id', 'name', 'description',
+            'phone', 'email', 'bankAccount'
+        )
+
+class OrganizerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Organizer
+        fields = (
+            'id', 'photo_id', 'building_id',
+            'name', 'surname', 'patronymic',
+            'phone', 'email', 'country', 
+            'city', 'address', 'bankAccount'
+        )
+
+class OrgEventSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrgEvent
+        fields = (
+            'org_id', 'event_id'
+        )
+        

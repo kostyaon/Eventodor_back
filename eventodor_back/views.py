@@ -1,7 +1,8 @@
+from unicodedata import category
 from django import views
 from rest_framework import generics, viewsets
-from .models import Coordinate, FavouriteEvents, Review, User, Event, UserEvent, Photo
-from .serializers import CoordinateSerializer, FavouriteEventSerializer, PhotoSerializer, ReviewSerializer, UserEventSerializer, UserSerializer, EventSerializer
+from .models import Category, Coordinate, FavouriteEvents, OrgEvent, Organization, Organizer, Review, User, Event, UserEvent, Photo
+from .serializers import CategorySerializer, CoordinateSerializer, FavouriteEventSerializer, OrgEventSerializer, OrganizationSerializer, OrganizerSerializer, PhotoSerializer, ReviewSerializer, UserEventSerializer, UserSerializer, EventSerializer
 
 # Create your views here.
 
@@ -51,3 +52,19 @@ class FavouriteViewSet(viewsets.ModelViewSet):
 class CoordinateViewSet(viewsets.ModelViewSet):
     queryset = Coordinate.objects.all()
     serializer_class = CoordinateSerializer
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class OrganizationViewSet(viewsets.ModelViewSet):
+    queryset = Organization.objects.all()
+    serializer_class = OrganizationSerializer
+
+class OrganizerViewSet(viewsets.ModelViewSet):
+    queryset = Organizer.objects.all()
+    serializer_class = OrganizerSerializer
+
+class OrgEventViewSet(viewsets.ModelViewSet):
+    queryset = OrgEvent.objects.all()
+    seriailzer_class = OrgEventSerializer

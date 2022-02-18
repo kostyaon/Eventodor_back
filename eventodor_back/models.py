@@ -1,4 +1,5 @@
 
+from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -9,6 +10,38 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.url
+
+class Organization(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    phone = models.CharField(max_length=50)
+    email = models.CharField(max_length=200)
+    bankAccount = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Organizer(models.Model):
+    photo_id = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    building_id = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    surname = models.CharField(max_length=100)
+    patronymic = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20)
+    email = models.CharField(max_length=100)
+    country = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    address = models.CharField(max_length=100)
+    bankAccount = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 
 class Coordinate(models.Model):
     longitude = models.CharField(max_length=100)
@@ -21,6 +54,8 @@ class Coordinate(models.Model):
 class Event(models.Model):
     photo_id = models.ForeignKey(Photo, on_delete=models.CASCADE)
     coordinate_id = models.ForeignKey(Coordinate, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+    org_id = models.ForeignKey(Organizer, on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
     persons_amount = models.IntegerField()
     register_persons_amount = models.IntegerField()
@@ -70,3 +105,10 @@ class FavouriteEvents(models.Model):
 
     def __str__(self):
         return str(self.user_id)
+
+class OrgEvent(models.Model):
+    org_id = models.ForeignKey(Organizer, on_delete=models.CASCADE)
+    event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.org_id)
