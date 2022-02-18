@@ -52,10 +52,10 @@ class Coordinate(models.Model):
         return self.longitude
 
 class Event(models.Model):
-    photo_id = models.ForeignKey(Photo, on_delete=models.CASCADE)
-    coordinate_id = models.ForeignKey(Coordinate, on_delete=models.CASCADE)
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
-    org_id = models.ForeignKey(Organizer, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    coordinate = models.ForeignKey(Coordinate, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    organizer = models.ForeignKey(Organizer, on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
     persons_amount = models.IntegerField()
     register_persons_amount = models.IntegerField()

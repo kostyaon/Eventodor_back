@@ -13,17 +13,6 @@ class UserSerializer(serializers.ModelSerializer):
             'country', 'city', 'address', 'bankAccount'
              )
 
-class EventSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Event
-        fields = (
-            'id', 'photo_id', 'coordinate_id', 'category_id', 'org_id',
-            'address', 'persons_amount', 'register_persons_amount',
-            'name', 'description', 'time',
-            'price', 'rank'
-        )
-
 class UserEventSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -102,3 +91,14 @@ class OrgEventSerializer(serializers.ModelSerializer):
             'org_id', 'event_id'
         )
         
+class EventSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = (
+            'id', 'photo', 'coordinate', 'category', 'organizer',
+            'address', 'persons_amount', 'register_persons_amount',
+            'name', 'description', 'time',
+            'price', 'rank'
+        )
+        depth = 1
