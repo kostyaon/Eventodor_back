@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('eventodor_back.urls')),
     path('api/v1/', include('dj_rest_auth.urls')),
+    path('api/v1/registration', include('dj_rest_auth.registration.urls')),
 ]

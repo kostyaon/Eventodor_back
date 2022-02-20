@@ -42,10 +42,17 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
-
+    'dj_rest_auth.registration',
+    'allauth',
+    'allauth.account', 
+    'allauth.socialaccount',
+     
     # Local
     'eventodor_back',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SITE_ID = 1 
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSIONS_CLASSES': [
