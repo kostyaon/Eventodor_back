@@ -56,8 +56,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSIONS_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [

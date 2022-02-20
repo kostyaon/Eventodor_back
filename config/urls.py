@@ -36,6 +36,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('eventodor_back.urls')),
     path('api/v1/', include('dj_rest_auth.urls')),
-    path('api/v1/registration', include('dj_rest_auth.registration.urls')),
+    path('api/v1/registration/', include('dj_rest_auth.registration.urls')),
+    path('api-auth/', include('rest_framework.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
