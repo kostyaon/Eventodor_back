@@ -67,4 +67,4 @@ class OrganizerViewSet(viewsets.ModelViewSet):
 
 class OrgEventViewSet(viewsets.ModelViewSet):
     queryset = OrgEvent.objects.all()
-    seriailzer_class = OrgEventSerializer
+    serializer_class = OrgEventSerializer
