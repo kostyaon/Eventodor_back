@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # 3-rd party 
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
 
     # Local
     'eventodor_back',
@@ -48,6 +50,11 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSIONS_CLASSES': [
         'rest_framework.permissions.AllowAny',
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
