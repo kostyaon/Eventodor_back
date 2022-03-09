@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Category, Coordinate, Organization, Organizer, Photo, Event
+from .models import Category, Coordinate, Organization, Organizer, Photo, Event, Review
 
 
 # Create your tests here.
@@ -8,10 +8,6 @@ class PhotoTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        #Create a user
-        testuser1 = User.objects.create_user(username='testuser1', password='abc123')
-        testuser1.save()
-
         test_photo = Photo.objects.create(url="test_url")
         test_photo.save()
     
@@ -205,8 +201,6 @@ class EventTest(TestCase):
     def test_event_content(self):
         event_photo = Photo.objects.get(id=1)
         event_coordinate = Coordinate.objects.get(id=1)
-       # org_photo = Photo.objects.get(id=2)
-       # event_organization = Organization.objects.get(id=1)
         event_organizer = Organizer.objects.get(id=1)
         event_category = Category.objects.get(id=1)
         event = Event.objects.get(id=1)
@@ -234,3 +228,104 @@ class EventTest(TestCase):
         self.assertEqual(time, "2018-11-20 15:58:44.767594+00:00")
         self.assertEqual(price, '100.0')
         self.assertEqual(rank, '3.0')
+
+# class ReviewTest(TestCase):
+
+#     @classmethod
+#     def setUpTestData(cls):
+#         event_photo = Photo.objects.create(url="event_url")
+#         event_photo.save()    
+
+#         event_coordinate = Coordinate.objects.create(
+#             latitude="event_latitude",
+#             longitude="event_longitude",
+#             height="event_height"
+#             )
+#         event_coordinate.save()    
+
+#         org_photo = Photo.objects.create(url="org_url")
+#         org_photo.save()
+
+#         event_organization = Organization.objects.create(
+#             name="org_name",
+#             description="org_description",
+#             phone = "org_phone",
+#             email ="org_email",
+#             bankAccount ="org_bank_account"
+#             )
+#         event_organization.save()
+
+#         event_organizer = Organizer.objects.create(
+#             photo_id = org_photo,
+#             building_id = event_organization,
+#             name = "organiz_name",
+#             surname = "organiz_surname",
+#             patronymic = "organiz_patronymic",
+#             phone = "organiz_phone",
+#             email = "organiz_email",
+#             country = "organiz_country",
+#             city = "organiz_city",
+#             address = "organiz_address",
+#             bankAccount = "organiz_account",
+#             )
+#         event_organizer.save()
+
+#         event_category = Category.objects.create(name="event_category")
+#         event_category.save()
+
+#         test_event = Event.objects.create(
+#             photo = event_photo,
+#             coordinate = event_coordinate,
+#             category = event_category,
+#             organizer = event_organizer,
+#             address = "test_address",
+#             persons_amount = 100,
+#             register_persons_amount = 90,
+#             name = "test_name",
+#             description = "test_description",
+#             time = "2018-11-20T15:58:44.767594",
+#             price = 100.0,
+#             rank = 3.0
+#             )
+#         test_event.save()
+
+#         user_photo = Photo.objects.create(url="user_url")
+#         user_photo.save()
+
+#         testuser1 = User.objects.create_user(
+#             username = "testUser",
+#             password = "abc123",
+#             photo_id = user_photo,
+#             name = "user_name",
+#             surname = "user_surname",
+#             patronymic = "user_patronymic",
+#             phone = "user_phone",
+#             email = "user_email",
+#             country ="user_country",
+#             city = "user_city",
+#             address = "user_address",
+#             bankAccount = "user_bank_account"
+#         )
+#         testuser1.save()
+
+#         review = Review.objects.create(
+#             user_id = testuser1,
+#             event_id = test_event,
+#             description = "test_description",
+#             rank = 3.0
+#         )
+#         review.save()
+
+    
+#     def test_review_content(self):
+#         review_event = Event.objects.get(id=1)
+#         review_user = User.objects.get(id=1)
+#         review = Review.objects.get(id=1)
+#         test_event = f'{review.event_id}'
+#         test_user = f'{review.user_id}'
+#         description = f'{review.description}'
+#         rank = f'{review.rank}'
+#         self.assertEqual(test_event, review_event)
+#         self.assertEqual(test_user, review_user)
+#         self.assertEqual(description, "test_description")
+#         self.assertEqual(rank, '3.0')
