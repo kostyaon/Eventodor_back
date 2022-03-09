@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Organization, Organizer, Photo
+from .models import Category, Coordinate, Organization, Organizer, Photo
 
 
 # Create your tests here.
@@ -111,3 +111,33 @@ class OrganizerTest(TestCase):
         self.assertEqual(city, 'test_city')
         self.assertEqual(address, 'test_address')
         self.assertEqual(bankAccount, 'test_bank_account')
+
+class CategoryTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        test_category = Category.objects.create(name="test_category")
+        test_category.save()
+    
+    def test_category_content(self):
+        category = Category.objects.get(id=1)
+        name = f'{category.name}'
+        self.assertEqual(name, 'test_category')
+
+class CoordinateTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        test_coordinate = Coordinate.objects.create(
+            latitude="test_latitude",
+            longitude="test_longitude",
+            height="test_height"
+            )
+        test_coordinate.save()
+    
+    def test_coordinate_content(self):
+        coordinate = Coordinate.objects.get(id=1)
+        latitude = f'{coordinate.latitude}'
+        longitude = f'{coordinate.longitude}'
+        height = f'{coordinate.height}'
+        self.assertEqual(height, 'test_height')
