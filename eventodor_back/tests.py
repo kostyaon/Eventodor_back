@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Category, Coordinate, Organization, Organizer, Photo
+from .models import Category, Coordinate, Organization, Organizer, Photo, Event
 
 
 # Create your tests here.
@@ -141,3 +141,96 @@ class CoordinateTest(TestCase):
         longitude = f'{coordinate.longitude}'
         height = f'{coordinate.height}'
         self.assertEqual(height, 'test_height')
+
+class EventTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        event_photo = Photo.objects.create(url="event_url")
+        event_photo.save()    
+
+        event_coordinate = Coordinate.objects.create(
+            latitude="event_latitude",
+            longitude="event_longitude",
+            height="event_height"
+            )
+        event_coordinate.save()    
+
+        org_photo = Photo.objects.create(url="org_url")
+        org_photo.save()
+
+        event_organization = Organization.objects.create(
+            name="org_name",
+            description="org_description",
+            phone = "org_phone",
+            email ="org_email",
+            bankAccount ="org_bank_account"
+            )
+        event_organization.save()
+
+        event_organizer = Organizer.objects.create(
+            photo_id = org_photo,
+            building_id = event_organization,
+            name = "organiz_name",
+            surname = "organiz_surname",
+            patronymic = "organiz_patronymic",
+            phone = "organiz_phone",
+            email = "organiz_email",
+            country = "organiz_country",
+            city = "organiz_city",
+            address = "organiz_address",
+            bankAccount = "organiz_account",
+            )
+        event_organizer.save()
+
+        event_category = Category.objects.create(name="event_category")
+        event_category.save()
+
+        test_event = Event.objects.create(
+            photo = event_photo,
+            coordinate = event_coordinate,
+            category = event_category,
+            organizer = event_organizer,
+            address = "test_address",
+            persons_amount = 100,
+            register_persons_amount = 90,
+            name = "test_name",
+            description = "test_description",
+            time = "2018-11-20T15:58:44.767594",
+            price = 100.0,
+            rank = 3.0
+            )
+        test_event.save()
+    
+    def test_event_content(self):
+        event_photo = Photo.objects.get(id=1)
+        event_coordinate = Coordinate.objects.get(id=1)
+       # org_photo = Photo.objects.get(id=2)
+       # event_organization = Organization.objects.get(id=1)
+        event_organizer = Organizer.objects.get(id=1)
+        event_category = Category.objects.get(id=1)
+        event = Event.objects.get(id=1)
+        test_event_photo = f'{event.photo}'
+        test_event_coordinate = f'{event.coordinate}'
+        test_event_category = f'{event.category}'
+        test_event_organizer = f'{event.organizer}'
+        address = f'{event.address}'
+        persons_amount = f'{event.persons_amount}'
+        register_persons_amount = f'{event.register_persons_amount}'
+        name = f'{event.name}'
+        description = f'{event.description}'
+        time = f'{event.time}'
+        price = f'{event.price}'
+        rank = f'{event.rank}'
+        self.assertEqual(test_event_photo, event_photo.url)
+        self.assertEqual(test_event_coordinate, event_coordinate.longitude)
+        self.assertEqual(test_event_category, event_category.name)
+        self.assertEqual(test_event_organizer, event_organizer.name)
+        self.assertEqual(address, "test_address")
+        self.assertEqual(persons_amount, '100')
+        self.assertEqual(register_persons_amount, '90')
+        self.assertEqual(name, "test_name")
+        self.assertEqual(description, "test_description")
+        self.assertEqual(time, "2018-11-20 15:58:44.767594+00:00")
+        self.assertEqual(price, '100.0')
+        self.assertEqual(rank, '3.0')
