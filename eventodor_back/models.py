@@ -79,6 +79,7 @@ class User(models.Model):
     city = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
     bankAccount = models.CharField(max_length=50)
+    myusername = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
