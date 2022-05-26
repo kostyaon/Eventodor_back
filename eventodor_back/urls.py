@@ -2,7 +2,7 @@ from email.mime import base
 from posixpath import basename
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
-from .views import CategoryViewSet, EventViewSet, OrgEventViewSet, OrganizationViewSet, OrganizerViewSet, PhotoViewSet, UserEventViewSet, UserViewSet, ReviewViewSet, FavouriteViewSet, CoordinateViewSet
+from .views import CategoryViewSet, EventViewSet, OrgEventViewSet, OrganizationViewSet, OrganizerViewSet, PhotoViewSet, UserEventViewSet, UserIdViewSet, UserViewSet, ReviewViewSet, FavouriteViewSet, CoordinateViewSet
 
 router = SimpleRouter()
 router.register('user', UserViewSet, basename='user')
@@ -16,5 +16,6 @@ router.register('category', CategoryViewSet, basename='category')
 router.register('organization', OrganizationViewSet, basename='organization')
 router.register('organizer', OrganizerViewSet, basename='organizer')
 router.register('orgevent', OrgEventViewSet, basename='orgevent')
+router.register('myaccount', UserIdViewSet, basename='UserId')
 # urlpatterns += router.urls
 urlpatterns = router.urls
